@@ -1,388 +1,582 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Blog Hermoso</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistemas Distribuidos: Clave Empresarial</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" href="images/icono.png" type="image/png">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-        :root {
-            --primary-color: #5b21b6;
-            --secondary-color: #8b5cf6;
-            --light-purple: #ede9fe;
-            --dark-text: #1e293b;
-            --light-text: #64748b;
-            --card-bg: #ffffff;
-            --body-bg: #f8fafc;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+      :root {
+        --primary-color: #5b21b6;
+        --secondary-color: #8b5cf6;
+        --light-purple: #ede9fe;
+        --dark-text: #1e293b;
+        --light-text: #64748b;
+        --card-bg: #ffffff;
+        --body-bg: #f8fafc;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
 
-        body {
-            background-color: var(--body-bg);
-            color: var(--dark-text);
-            line-height: 1.6;
-        }
+      body {
+        background-color: var(--body-bg);
+        color: var(--dark-text);
+        line-height: 1.6;
+      }
 
+      .container {
+        display: flex;
+        min-height: 100vh;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+        gap: 30px;
+      }
+
+      /* Estilos para la barra lateral de autores */
+      .authors-sidebar {
+        flex: 0 0 300px;
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 20px;
+        height: fit-content;
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+      }
+
+      .authors-sidebar h2 {
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--light-purple);
+        font-weight: 700;
+      }
+
+      .author-card {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        margin-bottom: 15px;
+        background: var(--light-purple);
+        border-radius: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .author-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(91, 33, 182, 0.1);
+      }
+
+      .author-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-right: 15px;
+      }
+
+      .author-info h3 {
+        color: var(--primary-color);
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+      }
+
+      .author-info p {
+        color: var(--light-text);
+        font-size: 0.9rem;
+      }
+
+      /* Estilos para el contenido principal del blog */
+      .blog-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .blog-header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        text-align: center;
+      }
+
+      .blog-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        font-weight: 800;
+      }
+
+      .blog-header p {
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 0 auto;
+        opacity: 0.9;
+      }
+
+      /* Artículo completo */
+      .article-container {
+        background: var(--card-bg);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        padding: 40px;
+      }
+
+      .article-header {
+        margin-bottom: 30px;
+      }
+
+      .article-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+        color: var(--light-text);
+      }
+
+      .article-tag {
+        background: var(--light-purple);
+        color: var(--primary-color);
+        padding: 6px 15px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .article-title {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        color: var(--dark-text);
+        line-height: 1.3;
+      }
+
+      .article-image {
+        width: 100%;
+        max-height: 500px;
+        object-fit: cover;
+        border-radius: 15px;
+        margin: 30px 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .article-content {
+        line-height: 1.8;
+        font-size: 1.1rem;
+      }
+
+      .article-content p {
+        margin-bottom: 20px;
+        color: var(--dark-text);
+      }
+
+      .article-content h3 {
+        font-size: 1.6rem;
+        margin: 40px 0 20px;
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--light-purple);
+        padding-bottom: 10px;
+      }
+
+      .article-content img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 30px auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .image-caption {
+        text-align: center;
+        font-style: italic;
+        color: var(--light-text);
+        margin-top: -15px;
+        margin-bottom: 30px;
+        font-size: 0.95rem;
+      }
+
+      .article-quote {
+        background: var(--light-purple);
+        border-left: 4px solid var(--primary-color);
+        padding: 25px;
+        margin: 30px 0;
+        border-radius: 0 10px 10px 0;
+        font-style: italic;
+        font-size: 1.1rem;
+      }
+
+      .feature-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+      }
+
+      .feature-card {
+        background: var(--light-purple);
+        border-radius: 12px;
+        padding: 20px;
+        transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-card h4 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+      }
+
+      /* Pie de página */
+      .blog-footer {
+        text-align: center;
+        padding: 30px;
+        margin-top: 20px;
+        color: var(--light-text);
+        border-top: 1px solid var(--light-purple);
+      }
+
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--light-purple);
+        color: var(--primary-color);
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+      }
+
+      .icon-netflix {
+        display: inline-block;
+        width: 26px;
+        height: 26px;
+        background-image: url("images/netflix.jpeg"); /* tu imagen */
+        background-size: cover;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
         .container {
-            display: flex;
-            min-height: 100vh;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-            gap: 30px;
+          flex-direction: column;
         }
 
-        /* Estilos para la barra lateral de autores */
         .authors-sidebar {
-            flex: 0 0 300px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-            max-height: calc(100vh - 40px);
-            overflow-y: auto;
+          position: static;
+          max-height: none;
         }
 
-        .authors-sidebar h2 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--light-purple);
-            font-weight: 700;
+        .article-container {
+          padding: 30px;
         }
 
-        .author-card {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 15px;
-            background: var(--light-purple);
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .article-title {
+          font-size: 1.8rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .article-meta {
+          flex-direction: column;
+          gap: 10px;
         }
 
-        .author-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(91, 33, 182, 0.1);
+        .article-container {
+          padding: 25px 20px;
         }
 
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-right: 15px;
+        .article-title {
+          font-size: 1.6rem;
         }
 
-        .author-info h3 {
-            color: var(--primary-color);
-            margin-bottom: 5px;
-            font-size: 1.1rem;
+        .article-content {
+          font-size: 1rem;
         }
 
-        .author-info p {
-            color: var(--light-text);
-            font-size: 0.9rem;
+        .feature-list {
+          grid-template-columns: 1fr;
         }
+      }
 
-        /* Estilos para el contenido principal del blog */
-        .blog-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
+      @media (max-width: 480px) {
         .blog-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            text-align: center;
+          padding: 25px 15px;
         }
 
         .blog-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            font-weight: 800;
+          font-size: 2rem;
         }
 
-        .blog-header p {
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto;
-            opacity: 0.9;
+        .article-title {
+          font-size: 1.4rem;
         }
 
-        .blog-posts {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
+        .article-quote {
+          padding: 15px;
+          font-size: 1rem;
         }
-
-        .post-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-        }
-
-        .post-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .post-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .post-content {
-            padding: 25px;
-        }
-
-        .post-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-            color: var(--light-text);
-        }
-
-        .post-tag {
-            background: var(--light-purple);
-            color: var(--primary-color);
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.8rem;
-        }
-
-        .post-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-            color: var(--dark-text);
-        }
-
-        .post-card p {
-            color: var(--light-text);
-            margin-bottom: 20px;
-        }
-
-        .read-more {
-            display: inline-block;
-            background: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s ease;
-        }
-
-        .read-more:hover {
-            background: var(--secondary-color);
-        }
-
-        /* Pie de página */
-        .blog-footer {
-            text-align: center;
-            padding: 30px;
-            margin-top: 20px;
-            color: var(--light-text);
-            border-top: 1px solid var(--light-purple);
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--light-purple);
-            color: var(--primary-color);
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .container {
-                flex-direction: column;
-            }
-            
-            .authors-sidebar {
-                position: static;
-                max-height: none;
-            }
-            
-            .blog-posts {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            }
-        }
-
-        @media (max-width: 576px) {
-            .blog-posts {
-                grid-template-columns: 1fr;
-            }
-            
-            .blog-header {
-                padding: 25px 15px;
-            }
-            
-            .blog-header h1 {
-                font-size: 2rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <!-- Barra lateral de autores -->
-        <aside class="authors-sidebar">
-            <h2><i class="fas fa-users"></i> Nuestros Autores</h2>
-            
-            <div class="author-card">
-                <img src="images/OIP.webp" alt="Autor 1" class="author-avatar">
-                <div class="author-info">
-                    <h3>Sandy Ruby</h3>
-                    <p>Estudiante de Ingeniera de Sistemas e Informatica</p>
-                </div>
+      <!-- Barra lateral de autores -->
+      <aside class="authors-sidebar">
+        <h2><i class="fas fa-users"></i> Nuestros Autores</h2>
+
+        <div class="author-card">
+          <img src="images/OIP.webp" alt="Sandy Ruby" class="author-avatar" />
+          <div class="author-info">
+            <h3>Sandy Ruby</h3>
+            <p>Estudiante de Ingeniería de Sistemas e Informática</p>
+          </div>
+        </div>
+
+        <div class="author-card">
+          <img src="images/OIP.webp" alt="Jhoans Aaron" class="author-avatar" />
+          <div class="author-info">
+            <h3>Jhoans Aaron</h3>
+            <p>Estudiante de Ingeniería de Sistemas e Informática</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Contenido principal del blog -->
+      <main class="blog-content">
+        <header class="blog-header">
+          <h1>SISTEMAS DISTRIBUIDOS: Clave Empresarial</h1>
+          <p>
+            La arquitectura del futuro: cómo los sistemas distribuidos están
+            transformando la tecnología empresarial
+          </p>
+        </header>
+
+        <!-- Artículo completo sobre Sistemas Distribuidos -->
+        <article class="article-container">
+          <div class="article-header">
+            <div class="article-meta">
+              <span><i class="far fa-calendar"></i> 21 Junio 2025</span>
+              <span class="article-tag">Tecnología</span>
             </div>
-            
-            <div class="author-card">
-                <img src="images/OIP.webp" alt="Autor 2" class="author-avatar">
-                <div class="author-info">
-                    <h3>Jhoans Aaron</h3>
-                    <p>Estudiante de Ingeniera de Sistemas e Informatica</p>
-                </div>
+            <h1 class="article-title">Sistemas Distribuidos</h1>
+          </div>
+
+          <div class="article-content">
+            <h3>¿Qué son los Sistemas Distribuidos?</h3>
+            <p>
+              Un sistema distribuido es un conjunto de computadoras
+              independientes que trabajan coordinadamente y se presentan ante el
+              usuario como un único sistema. Permiten compartir recursos, datos
+              y procesos de forma eficiente y segura. Son clave en la tecnología
+              actual y permiten que plataformas como Netflix, Microsoft y
+              Facebook funcionen de forma eficiente, rápida y confiable.
+            </p>
+
+            <h3>¿Importancia de los Sistemas Distribuidos?</h3>
+            <div class="feature-list">
+              <div class="feature-card">
+                <h4></h4>
+                <p>
+                  Recursos compartidos: los sistemas distribuidos pueden
+                  compartir hardware, software o datos
+                </p>
+              </div>
+
+              <div class="feature-card">
+                <h4></h4>
+                <p>
+                  Procesamiento simultáneo: varias máquinas pueden procesar la
+                  misma función a la vez
+                </p>
+              </div>
+
+              <div class="feature-card">
+                <h4></h4>
+                <p>
+                  Escalabilidad: la capacidad computacional y de procesamiento
+                  puede escalarse hacia arriba según sea necesario cuando se
+                  añaden máquinas adicionales
+                </p>
+              </div>
+
+              <div class="feature-card">
+                <h4></h4>
+                <p>
+                  Detección de errores: los errores se pueden detectar más
+                  fácilmente
+                </p>
+              </div>
+
+              <div class="feature-card">
+                <h4></h4>
+                <p>
+                  Transparencia: un nodo puede acceder a otros nodos del sistema
+                  y comunicarse con ellos
+                </p>
+              </div>
             </div>
-            
-        </aside>
-        
-        <!-- Contenido principal del blog -->
-        <main class="blog-content">
-            <header class="blog-header">
-                <h1>Mi Blog Hermoso</h1>
-                <p>Un espacio donde comparto mis pensamientos, ideas y experiencias sobre tecnología, diseño y desarrollo web.</p>
-            </header>
-            
-            <section class="blog-posts">
-                <!-- Artículo 1 -->
-                <article class="post-card">
-                    <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=80" alt="Diseño Web" class="post-image">
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> 15 Marzo 2023</span>
-                            <span class="post-tag">Diseño</span>
-                        </div>
-                        <h3>Tendencias de diseño web para 2023</h3>
-                        <p>Exploramos las tendencias más impactantes que están definiendo el diseño web este año, desde glassmorphism hasta micro-interacciones avanzadas.</p>
-                        <a href="#" class="read-more">Leer más</a>
-                    </div>
-                </article>
-                
-                <!-- Artículo 2 -->
-                <article class="post-card">
-                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bad8c?auto=format&fit=crop&w=800&q=80" alt="Programación" class="post-image">
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> 5 Abril 2023</span>
-                            <span class="post-tag">Desarrollo</span>
-                        </div>
-                        <h3>Guía completa de React Hooks</h3>
-                        <p>Aprende a dominar los React Hooks con ejemplos prácticos y casos de uso avanzados que mejorarán tu código y productividad.</p>
-                        <a href="#" class="read-more">Leer más</a>
-                    </div>
-                </article>
-                
-                <!-- Artículo 3 -->
-                <article class="post-card">
-                    <img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=800&q=80" alt="SEO" class="post-image">
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> 28 Abril 2023</span>
-                            <span class="post-tag">SEO</span>
-                        </div>
-                        <h3>SEO para desarrolladores: Lo que necesitas saber</h3>
-                        <p>Los fundamentos técnicos de SEO que todo desarrollador debe conocer para crear sitios web optimizados para motores de búsqueda.</p>
-                        <a href="#" class="read-more">Leer más</a>
-                    </div>
-                </article>
-                
-                <!-- Artículo 4 -->
-                <article class="post-card">
-                    <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=800&q=80" alt="Marketing" class="post-image">
-                    <div class="post-content">
-                        <div class="post-meta">
-                            <span><i class="far fa-calendar"></i> 12 Mayo 2023</span>
-                            <span class="post-tag">Marketing</span>
-                        </div>
-                        <h3>Estrategias de contenido que convierten</h3>
-                        <p>Cómo crear contenido valioso que genere engagement y conversiones para tu negocio en la era digital.</p>
-                        <a href="#" class="read-more">Leer más</a>
-                    </div>
-                </article>
-            </section>
-            
-            <footer class="blog-footer">
-                <p>© 2023 Mi Blog Hermoso. Todos los derechos reservados.</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
-                </div>
-            </footer>
-        </main>
+
+            <img
+              src="images/sistemasDis.png"
+              alt="Arquitectura de sistemas distribuidos"
+            />
+            <p class="image-caption">
+              Arquitectura típica de un sistema distribuido moderno
+            </p>
+
+            <h3>Empresas que utilizan Sistemas Distribuidos</h3>
+
+            <h2><i class="fab fa-facebook-f"></i> Facebook</h2>
+            <div class="article-quote">
+              <p>
+                "Facebook es un ejemplo de cómo los sistemas distribuidos
+                permiten manejar grandes volúmenes de datos y usuarios de manera
+                eficiente."
+              </p>
+              <p class="author">- Sandy Ruby</p>
+            </div>
+
+            <p>
+              Facebook opera con una arquitectura distribuida para procesar y
+              servir miles de millones de publicaciones, fotos, comentarios y
+              likes al día. Utiliza bases de datos distribuidas como TAO, y
+              herramientas como Apache Cassandra y Memcached, para almacenar y
+              recuperar información rápidamente. Sus centros de datos se
+              encuentran distribuidos en múltiples regiones para asegurar
+              disponibilidad y rapidez.
+            </p>
+            <p>
+              Ejemplo: Cuando subes una foto, esta se distribuye entre varios
+              servidores y bases de datos para que puedas acceder a ella
+              rápidamente desde cualquier parte del mundo.
+            </p>
+            <br />
+
+            <h2><i class="icon-netflix"></i> Netflix</h2>
+            <div class="article-quote">
+              <p>
+                "Netflix utiliza sistemas distribuidos para ofrecer contenido
+                multimedia a más de 200 millones de usuarios en todo el mundo."
+              </p>
+              <p class="author">- Sandy Ruby</p>
+            </div>
+            <p>
+              Usa sistemas distribuidos para distribuir contenido multimedia en
+              tiempo real. Sus servidores están repartidos globalmente mediante
+              una red de distribución de contenido (CDN) llamada Open Connect.
+              Esto garantiza que los usuarios vean películas sin interrupciones,
+              incluso en diferentes países. Netflix utiliza sistemas
+              distribuidos para ofrecer contenido multimedia a más de 200
+              millones de usuarios. Su arquitectura está basada en la nube de
+              Amazon Web Services (AWS), donde se implementan servicios como
+              balanceo de carga, escalamiento automático y replicación de datos.
+              Usa microservicios distribuidos, lo que permite actualizar o
+              escalar partes de su sistema sin afectar el servicio completo.
+            </p>
+            <p>
+              Ejemplo: Si muchas personas ven la misma película en diferentes
+              países, los datos se sirven desde servidores cercanos a ellos,
+              gracias a su red de distribución de contenido (CDN).
+            </p>
+            <br />
+
+            <h2><i class="fab fa-microsoft"></i> Microsoft</h2>
+            <div class="article-quote">
+              <p>
+                "Microsoft ha integrado sistemas distribuidos en su plataforma
+                Azure, permitiendo a las empresas escalar y gestionar
+                aplicaciones globalmente."
+              </p>
+              <p class="author">- Jhoans Aaron</p>
+            </div>
+
+            <p>
+              Microsoft aplica sistemas distribuidos en servicios como Azure, su
+              plataforma de computación en la nube. Permite almacenar, procesar
+              y analizar datos distribuidos a escala global. Azure usa una red
+              de centros de datos interconectados que trabajan de forma conjunta
+              para ofrecer servicios de bases de datos, inteligencia artificial,
+              aplicaciones web, etc.
+            </p>
+            <p>
+              Ejemplo: Empresas que usan Microsoft Azure pueden tener sus
+              aplicaciones funcionando simultáneamente en diferentes partes del
+              mundo con alta disponibilidad y seguridad.
+            </p>
+        </article>
+
+        <footer class="blog-footer">
+          <p>
+            © 2024 Blog de Sistemas Distribuidos. Todos los derechos reservados.
+          </p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/Jhoans404"><i class="fab fa-github"></i></a>
+          </div>
+        </footer>
+      </main>
     </div>
 
     <script>
-        // Pequeño script para agregar un efecto al pasar el mouse sobre los autores
-        document.addEventListener('DOMContentLoaded', function() {
-            const authorCards = document.querySelectorAll('.author-card');
-            
-            authorCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 10px 15px rgba(91, 33, 182, 0.1)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = 'none';
-                });
-            });
+      // Efecto para las tarjetas de características
+      document.addEventListener("DOMContentLoaded", function () {
+        const featureCards = document.querySelectorAll(".feature-card");
+
+        featureCards.forEach((card) => {
+          card.addEventListener("mouseenter", function () {
+            this.style.transform = "translateY(-5px)";
+          });
+
+          card.addEventListener("mouseleave", function () {
+            this.style.transform = "translateY(0)";
+          });
         });
+      });
     </script>
-</body>
+  </body>
 </html>
