@@ -3,20 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechVision Blog</title>
+    <title>Mi Blog Hermoso</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #5b21b6;
+            --secondary-color: #8b5cf6;
+            --light-purple: #ede9fe;
+            --dark-text: #1e293b;
+            --light-text: #64748b;
+            --card-bg: #ffffff;
+            --body-bg: #f8fafc;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--body-bg);
+            color: var(--dark-text);
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
         }
 
         .container {
@@ -24,516 +35,353 @@
             min-height: 100vh;
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            gap: 30px;
         }
 
-        /* Navegación lateral */
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 2rem 0;
-            position: fixed;
-            height: 100vh;
+        /* Estilos para la barra lateral de autores */
+        .authors-sidebar {
+            flex: 0 0 300px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            max-height: calc(100vh - 40px);
             overflow-y: auto;
-            transition: transform 0.3s ease;
-            z-index: 1000;
         }
 
-        .sidebar-header {
-            text-align: center;
-            padding: 0 2rem 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .sidebar-header h1 {
-            font-size: 1.8rem;
+        .authors-sidebar h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-purple);
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-menu {
-            list-style: none;
-            padding: 2rem 0;
-        }
-
-        .nav-item {
-            margin: 0.5rem 0;
-        }
-
-        .nav-link {
-            display: block;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            padding: 1rem 2rem;
-            transition: all 0.3s ease;
-            border-left: 3px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-link:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-            border-left-color: #667eea;
-            transform: translateX(5px);
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .nav-link:hover::before {
-            left: 100%;
-        }
-
-        /* Contenido principal */
-        .main-content {
-            flex: 1;
-            margin-left: 280px;
-            padding: 2rem;
-            overflow-x: hidden;
-        }
-
-        .section {
-            margin-bottom: 4rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        .section:nth-child(2) { animation-delay: 0.2s; }
-        .section:nth-child(3) { animation-delay: 0.4s; }
-        .section:nth-child(4) { animation-delay: 0.6s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-
-        /* Artículos del blog */
-        .articles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .article-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .article-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .article-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .article-content {
-            padding: 1.5rem;
-        }
-
-        .article-title {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #2c3e50;
-        }
-
-        .article-excerpt {
-            color: #666;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .article-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        .read-more {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .read-more:hover {
-            color: #764ba2;
-        }
-
-        /* Sección de autores */
-        .authors-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
         }
 
         .author-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .author-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: var(--light-purple);
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .author-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(91, 33, 182, 0.1);
         }
 
-        .author-photo {
-            width: 120px;
-            height: 120px;
+        .author-avatar {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-right: 15px;
+        }
+
+        .author-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+
+        .author-info p {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        /* Estilos para el contenido principal del blog */
+        .blog-content {
+            flex: 1;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .blog-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            font-size: 3rem;
-            font-weight: bold;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .blog-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .blog-header p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .blog-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .post-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
             transition: transform 0.3s ease;
         }
 
-        .author-card:hover .author-photo {
-            transform: scale(1.1);
+        .post-card:hover {
+            transform: translateY(-10px);
         }
 
-        .author-name {
-            font-size: 1.4rem;
+        .post-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .post-content {
+            padding: 25px;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: var(--light-text);
+        }
+
+        .post-tag {
+            background: var(--light-purple);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 50px;
             font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
         }
 
-        .author-role {
-            color: #667eea;
-            font-weight: 500;
-            margin-bottom: 1rem;
+        .post-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--dark-text);
         }
 
-        .author-bio {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
+        .post-card p {
+            color: var(--light-text);
+            margin-bottom: 20px;
         }
 
-        .social-links {
+        .read-more {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .read-more:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Pie de página */
+        .blog-footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 20px;
+            color: var(--light-text);
+            border-top: 1px solid var(--light-purple);
+        }
+
+        .social-icons {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 20px;
+            margin-top: 20px;
         }
 
-        .social-link {
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-        }
-
-        .social-link:hover {
-            transform: scale(1.2);
-        }
-
-        /* Botón de menú móvil */
-        .menu-toggle {
-            display: none;
-            position: fixed;
-            top: 1rem;
-            left: 1rem;
-            z-index: 1001;
-            background: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
+            background: var(--light-purple);
+            color: var(--primary-color);
             font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
             }
-
-            .sidebar {
-                transform: translateX(-100%);
+            
+            .authors-sidebar {
+                position: static;
+                max-height: none;
             }
-
-            .sidebar.active {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 1rem;
-                padding-top: 4rem;
-            }
-
-            .articles-grid,
-            .authors-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
+            
+            .blog-posts {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
         }
 
-        .footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
+        @media (max-width: 576px) {
+            .blog-posts {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-header {
+                padding: 25px 15px;
+            }
+            
+            .blog-header h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-    
     <div class="container">
-        <nav class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h1>Sammy</h1>
-                <p>Blog de Tecnología</p>
+        <!-- Barra lateral de autores -->
+        <aside class="authors-sidebar">
+            <h2><i class="fas fa-users"></i> Nuestros Autores</h2>
+            
+            <div class="author-card">
+                <img src="images/OIP.webp" alt="Autor 1" class="author-avatar">
+                <div class="author-info">
+                    <h3>Sandy Ruby</h3>
+                    <p>Estudiante de Ingeniera de Sistemas e Informatica</p>
+                </div>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#inicio" class="nav-link" onclick="scrollToSection('inicio')">🏠 Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#articulos" class="nav-link" onclick="scrollToSection('articulos')">📰 Artículos</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#autores" class="nav-link" onclick="scrollToSection('autores')">👥 Autores</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contacto" class="nav-link" onclick="scrollToSection('contacto')">📧 Contacto</a>
-                </li>
-            </ul>
-        </nav>
-
-        <main class="main-content">
-            <section id="inicio" class="section">
-                <h1 class="section-title">Bienvenido a Sammy</h1>
-                <p style="font-size: 1.2rem; color: #666; max-width: 800px;">
-                    Descubre las últimas tendencias en tecnología, programación y desarrollo. 
-                    Nuestro equipo de expertos comparte conocimientos, tutoriales y análisis 
-                    profundos sobre el mundo digital que está transformando nuestro futuro.
-                </p>
-            </section>
-
-            <section id="articulos" class="section">
-                <h2 class="section-title">Últimos Artículos</h2>
-                <div class="articles-grid">
-                    <article class="article-card">
-                        <div class="article-image">
-                            Sistemas Distribuidos: Clave Empresarial
+            
+            <div class="author-card">
+                <img src="images/OIP.webp" alt="Autor 2" class="author-avatar">
+                <div class="author-info">
+                    <h3>Jhoans Aaron</h3>
+                    <p>Estudiante de Ingeniera de Sistemas e Informatica</p>
+                </div>
+            </div>
+            
+        </aside>
+        
+        <!-- Contenido principal del blog -->
+        <main class="blog-content">
+            <header class="blog-header">
+                <h1>Mi Blog Hermoso</h1>
+                <p>Un espacio donde comparto mis pensamientos, ideas y experiencias sobre tecnología, diseño y desarrollo web.</p>
+            </header>
+            
+            <section class="blog-posts">
+                <!-- Artículo 1 -->
+                <article class="post-card">
+                    <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=800&q=80" alt="Diseño Web" class="post-image">
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> 15 Marzo 2023</span>
+                            <span class="post-tag">Diseño</span>
                         </div>
-                        <div class="article-content">
-                            <h3 class="article-title"></h3>
-                            <p class="article-excerpt">
-                                Exploramos cómo la inteligencia artificial está revolucionando 
-                                la forma en que desarrollamos aplicaciones web modernas.
-                            </p>
-                            <div class="article-meta">
-                                <span>Por Sandy Ruby & Jhoans Aaron</span>
-                                <a href="sistemas.html" class="read-more">Leer más →</a>
-                            </div>
+                        <h3>Tendencias de diseño web para 2023</h3>
+                        <p>Exploramos las tendencias más impactantes que están definiendo el diseño web este año, desde glassmorphism hasta micro-interacciones avanzadas.</p>
+                        <a href="#" class="read-more">Leer más</a>
+                    </div>
+                </article>
+                
+                <!-- Artículo 2 -->
+                <article class="post-card">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bad8c?auto=format&fit=crop&w=800&q=80" alt="Programación" class="post-image">
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> 5 Abril 2023</span>
+                            <span class="post-tag">Desarrollo</span>
                         </div>
-                    </article>
-                </div>
-            </section>
-
-            <section id="autores" class="section">
-                <h2 class="section-title">Nuestro Equipo</h2>
-                <div class="authors-grid">
-                    <div class="author-card">
-                        <div class="author-photo">SR</div>
-                        <h3 class="author-name">Sandy Ruby</h3>
-                        <p class="author-role">Especialista en IA</p>
-                        <p class="author-bio">
-                            Doctora en Ciencias de la Computación con más de 8 años de experiencia 
-                            en inteligencia artificial y machine learning.
-                        </p>
+                        <h3>Guía completa de React Hooks</h3>
+                        <p>Aprende a dominar los React Hooks con ejemplos prácticos y casos de uso avanzados que mejorarán tu código y productividad.</p>
+                        <a href="#" class="read-more">Leer más</a>
                     </div>
-
-                    <div class="author-card">
-                        <div class="author-photo">JA</div>
-                        <h3 class="author-name">Jhoans Aaron</h3>
-                        <p class="author-role">Desarrollador Full Stack</p>
-                        <p class="author-bio">
-                            Ingeniero de software especializado en JavaScript, Node.js y React. 
-                            Apasionado por las tecnologías emergentes.
-                        </p>
+                </article>
+                
+                <!-- Artículo 3 -->
+                <article class="post-card">
+                    <img src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&w=800&q=80" alt="SEO" class="post-image">
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> 28 Abril 2023</span>
+                            <span class="post-tag">SEO</span>
+                        </div>
+                        <h3>SEO para desarrolladores: Lo que necesitas saber</h3>
+                        <p>Los fundamentos técnicos de SEO que todo desarrollador debe conocer para crear sitios web optimizados para motores de búsqueda.</p>
+                        <a href="#" class="read-more">Leer más</a>
                     </div>
-                </div>
-            </section>
-
-            <section id="contacto" class="section">
-                <h2 class="section-title">Contacto</h2>
-                <div style="max-width: 600px;">
-                    <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">
-                        ¿Tienes alguna pregunta o te gustaría colaborar con nosotros? 
-                        No dudes en ponerte en contacto.
-                    </p>
-                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                        <p><strong>Email:</strong> contacto@sammy.com</p>
-                        <p><strong>Teléfono:</strong> +51 999 888 777</p>
-                        <p><strong>Dirección:</strong> Piura, Perú</p>
+                </article>
+                
+                <!-- Artículo 4 -->
+                <article class="post-card">
+                    <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=800&q=80" alt="Marketing" class="post-image">
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <span><i class="far fa-calendar"></i> 12 Mayo 2023</span>
+                            <span class="post-tag">Marketing</span>
+                        </div>
+                        <h3>Estrategias de contenido que convierten</h3>
+                        <p>Cómo crear contenido valioso que genere engagement y conversiones para tu negocio en la era digital.</p>
+                        <a href="#" class="read-more">Leer más</a>
                     </div>
-                </div>
+                </article>
             </section>
-
-            <footer class="footer">
-                <p>&copy; 2025 Sammy Blog. Todos los derechos reservados.</p>
+            
+            <footer class="blog-footer">
+                <p>© 2023 Mi Blog Hermoso. Todos los derechos reservados.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
             </footer>
         </main>
     </div>
 
     <script>
-        function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
-
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            section.scrollIntoView({ behavior: 'smooth' });
+        // Pequeño script para agregar un efecto al pasar el mouse sobre los autores
+        document.addEventListener('DOMContentLoaded', function() {
+            const authorCards = document.querySelectorAll('.author-card');
             
-            // Cerrar menú en móvil después de navegar
-            if (window.innerWidth <= 768) {
-                toggleMenu();
-            }
-        }
-
-        // Animación de aparición en scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+            authorCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 15px rgba(91, 33, 182, 0.1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
             });
-        }, observerOptions);
-
-        // Observar todas las secciones
-        document.querySelectorAll('.section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Destacar enlace activo en la navegación
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('.section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.style.background = '';
-                link.style.borderLeftColor = 'transparent';
-                if (link.getAttribute('href') === '#' + current) {
-                    link.style.background = 'rgba(255, 255, 255, 0.1)';
-                    link.style.borderLeftColor = '#667eea';
-                }
-            });
-        });
-
-        // Efecto parallax suave en el fondo
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            document.body.style.backgroundPosition = `center ${scrolled * 0.5}px`;
         });
     </script>
 </body>
