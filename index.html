@@ -544,8 +544,39 @@
               mundo con alta disponibilidad y seguridad.
             </p>
 
+            <h3>Caso de Estudio Ampliado: Netflix y su Arquitectura de Sistemas Distribuidos</h3>
+            
+            <h2>Problema Inicial: Una Plataforma que No Escalaba</h2>
+            <p>
+              En sus inicios, Netflix funcionaba con una arquitectura monolítica alojada en sus propios centros de datos. Esto significaba que todos los servicios (registro, reproducción, catálogo, sugerencias, etc.) estaban unidos en un solo bloque de software. Este diseño dificultaba el mantenimiento, la innovación y la capacidad de responder ante el crecimiento de usuarios, especialmente durante eventos de alto tráfico como el estreno de una nueva serie.
+Además, una caída en una parte del sistema podía afectar todo el servicio. Por ejemplo, si el sistema de recomendaciones fallaba, también podía afectar la reproducción de videos o la carga del catálogo.
+
+            </p>
+
+            <h2>La Transformación: Migración a la Nube y Microservicios</h2>
+            <p>
+             A partir de 2008, después de una caída masiva de su sistema durante tres días, Netflix tomó una decisión estratégica: migrar toda su infraestructura a la nube pública de Amazon Web Services (AWS). Pero no solo eso, también rediseñó su arquitectura adoptando un modelo de microservicios distribuidos.
+Esto significó dividir su aplicación monolítica en más de mil microservicios independientes, cada uno responsable de una función específica: manejo de usuarios, catálogos, historial, motor de recomendaciones, pagos, etc.
+Cada microservicio se puede escalar, actualizar o reparar sin afectar al resto del sistema. Además, utilizan servicios distribuidos de bases de datos, procesamiento de datos en tiempo real, almacenamiento de videos, inteligencia artificial y redes de entrega de contenido (CDN).
+            </p>
+            <p>1. Microservicios: Más de 1000 pequeños servicios que trabajan en conjunto, desarrollados e implementados por equipos diferentes.</p>
+            <p>2. Alta disponibilidad: Si un servidor falla, el tráfico se redirige a otro servidor en otra región.</p>
+            <p>3. CDN (Open Connect): Una red privada distribuida globalmente para entregar contenido de forma rápida y eficiente, minimizando la carga en internet.</p>
+            <p>4. Sistemas de cache: Para entregar contenido más rápido y evitar sobrecargar los servidores principales.</p>
+            <p>5. Tolerancia a fallos: Netflix simula caídas con herramientas como Chaos Monkey, que apaga partes del sistema de forma aleatoria para probar su resiliencia.</p>
+
+            <h2>Resultados Obtenidos</h2>
+            <p>Disponibilidad del 99.99%: El sistema casi nunca se cae.</p>
+            <p>Tiempo de carga reducido: El contenido se entrega desde servidores cercanos al usuario, lo que mejora la experiencia.</p>
+            <p>Mayor innovación: Los equipos pueden lanzar nuevas funciones sin afectar la plataforma completa.</p>
+            <p>Personalización avanzada: Gracias al análisis de datos distribuido, Netflix puede ofrecer recomendaciones personalizadas a cada usuario.</p>
+            <p>Expansión internacional sin límites: La infraestructura permite ofrecer el servicio en cualquier país sin necesidad de instalar centros físicos.</p>
+
+            <h2>Conclusión del Caso de Estudio</h2>
+            <p>El caso de Netflix es un claro ejemplo de cómo los sistemas distribuidos permiten a una empresa escalar globalmente, ofrecer alta disponibilidad, y mejorar la experiencia del usuario a través de la tecnología. Su transformación de una arquitectura monolítica a una distribuida no solo mejoró su estabilidad, sino que se convirtió en un referente de arquitectura moderna en la industria tecnológica.</p>
+
             <br>
-            <h2><i class="fas fa-book-open"></i> Referencias</h2>
+            <h3><i class="fas fa-book-open"></i> Referencias</h3>
             <p>
               <i class="fas fa-circle-check"></i> Design Gurus Team. (2025). What kind of system is Netflix? DesignGurus. Recuperado el 25 de junio de 2025, de https://www.designgurus.io/answers/detail/what-kind-of-system-is-netflix
             </p>
